@@ -1,0 +1,3 @@
+export const GET_FILE_FIELDS = 'GET_FIELD_FIELDS';
+export const ADD_FILE_FIELD = 'ADD_FILE_FIELD';
+export const RELOAD_FILE_FIELDS = 'RELOAD_FILE_FIELDS';

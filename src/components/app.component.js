@@ -21,7 +21,7 @@ export default class App extends React.Component {
             <div>
                 <div><h5>GDS MS Config File Generator</h5></div>
                 <FileList selectFile={this.selectFile.bind(this) } />
-                <FileFields selectedFile={this.state.selectedFile} />
+                {this.state.selectedFile ? <FileFields selectedFile={this.state.selectedFile} /> : ''}
             </div>
         )
     }

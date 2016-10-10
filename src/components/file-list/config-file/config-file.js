@@ -15,7 +15,7 @@ export default class ConfigFile extends React.Component {
         this.props.selectFile(this.props.fileId);
     }
     render() {
-        return (<li class="tabs-title"><a onClick={this.selectFile.bind(this)} class="column large-10 medium-10 small-10" href={'#_panel_' + this.props.fileId}> {this.props.file.fileName}</a>
-            <a onClick={this.removeFile.bind(this) } class="large-2 medium-2 small-2 column">remove</a></li>)
+        return (<li class="tabs-title"><a onClick={this.selectFile.bind(this)} class="column large-9 medium-9 small-9" href={'#_panel_' + this.props.fileId}> {this.props.file.fileName}</a>
+            <a onClick={this.removeFile.bind(this) } class="large-3 medium-3 small-3 column">remove</a></li>)
     }
 }

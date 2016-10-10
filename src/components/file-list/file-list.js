@@ -52,7 +52,7 @@ export default class FileList extends React.Component {
             filesList.push(<ConfigFile selectFile={this.props.selectFile.bind(this) } key={key} getFiles={this.getFiles.bind(this) } file={file} fileId={key}/>);
         });
         return (
-            <div class="large-3 medium-3 columns">
+            <div class="large-4 medium-4 columns">
                 <div> {this.state.loading ? <span>Loading...</span> : ''}</div>
                 <div >
                     <form  class="row collapse" onSubmit={this.handleAddFile.bind(this) }>
