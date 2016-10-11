@@ -1,7 +1,7 @@
 import React from 'React';
 import FieldSelect from './field-select/field-select';
 import FileFieldStore from './file-fields.store';
-import {RELOAD_FILE_FIELDS} from './actions/types';
+import { RELOAD_FILE_FIELDS } from './actions/types';
 import GetFileFields from './actions/get-file-fields';
 import lodash from 'lodash';
 import Field from './field/field';
@@ -11,10 +11,16 @@ export default class FileFields extends React.Component {
     constructor() {
         super();
     }
+    componentDidUpdate(prevProp) {
+        if (prevProp.fileId !== this.props.fileId) {
+            new ReloadFileFields(this.props.fileId);
+        }
+    }
     getFileFields(data) {
         this.setState({
             fields: JSON.parse(data)
         });
+        console.log('fields', this.state.fields);
     }
     componentWillMount() {
         this.setState({
@@ -30,22 +36,23 @@ export default class FileFields extends React.Component {
         this.state.selectedField = selectedField;
     }
     addField(field) {
-        new AddFileField(this.props.fileId, field, (err) => {
-            if (!err) {
-                new ReloadFileFields(this.props.fileId);
-            }
-        });
+        if (this.props.fileId && field) {
+            new AddFileField(this.props.fileId, field, (err) => {
+                if (!err) {
+                    new ReloadFileFields(this.props.fileId);
+                }
+            });
+        }
     }
     render() {
         const fields = [];
         lodash.forIn(this.state.fields, (field, key) => {
-            console.log('field', field);
-            fields.push(<Field field={field} fieldId={key}/>)
+            fields.push(<Field field={field} fieldId={key} />)
         });
         return (
             <div class="large-4 medium-4 columns">
                 <div>
-                    <FieldSelect addField={this.addField.bind(this) } selectField={this.selectField.bind(this) }/>
+                    <FieldSelect addField={this.addField.bind(this)} selectField={this.selectField.bind(this)} />
                 </div>
                 <ul class="tabs vertical" id="field-tabs" data-tabs>
                     {fields}

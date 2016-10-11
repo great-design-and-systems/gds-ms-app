@@ -11,16 +11,14 @@ export default class App extends React.Component {
         this.setState({
             selectedFile
         });
-        if (selectedFile.length > 0) {
-            new ReloadFileFields(selectedFile);
-        }
     }
     render() {
         return (
             <div>
                 <div><h5>GDS MS Config File Generator</h5></div>
-                <FileList selectFile={this.selectFile.bind(this) } />
-                <FileFields fileId={this.state.selectedFile}/>
+                <FileList selectFile={this.selectFile.bind(this)} />
+                <FileFields fileId={this.state.selectedFile} />
+                <div class="large-4 medium-4"></div>
             </div>
         )
     }

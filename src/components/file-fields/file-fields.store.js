@@ -17,7 +17,7 @@ class FileFieldStore extends EventEmitter {
             });
     }
     addField(fileId, field, callback) {
-        axios.post(FILE_FIELDS_URL + '/' + fileId + '/props.json', { value: field })
+        axios.post(FILE_FIELDS_URL + '/' + fileId + '/props/.json', { value: field })
             .then((response) => {
                 callback(undefined);
             })
