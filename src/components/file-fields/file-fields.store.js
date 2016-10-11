@@ -17,12 +17,21 @@ class FileFieldStore extends EventEmitter {
             });
     }
     addField(fileId, field, callback) {
-        axios.post(FILE_FIELDS_URL + '/' + fileId + '/props.json', { 'field': field })
+        axios.post(FILE_FIELDS_URL + '/' + fileId + '/props.json', { value: field })
             .then((response) => {
                 callback(undefined);
             })
             .catch((err) => {
                 callback(err);
+            });
+    }
+    reloadFileFields(fileId) {
+        axios.get(FILE_FIELDS_URL + '/' + fileId + '/props.json')
+            .then((response) => {
+                this.emit(RELOAD_FILE_FIELDS, JSON.stringify(response.data));
+            })
+            .catch((err) => {
+                console.log('reloadFileFields', err);
             });
     }
     handler(action) {
@@ -34,7 +43,7 @@ class FileFieldStore extends EventEmitter {
                 this.addField(action.id, action.field, action.callback);
                 break;
             case RELOAD_FILE_FIELDS:
-                emit(RELOAD_FILE_FIELDS);
+                this.reloadFileFields(action.id);
                 break;
         }
     }

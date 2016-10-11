@@ -14,6 +14,16 @@ export default class FieldSelect extends React.Component {
         this.setState({
             selectedField
         });
+        this.setAddButtonEnabled(selectedField.length > 0);
+
+    }
+    setAddButtonEnabled(enabled) {
+        const buttonElement = document.getElementById('addFieldButtonId');
+        if (enabled) {
+            buttonElement.removeAttribute('disabled');
+        } else {
+            buttonElement.setAttribute('disabled', '');
+        }
     }
     addField(e) {
         this.props.addField(this.state.selectedField);
@@ -22,12 +32,13 @@ export default class FieldSelect extends React.Component {
         return (
             <div class="input-group">
                 <select id="fieldSelectorId" class="input-group-field" onChange={this.selectField.bind(this) } value={this.state.selectedField}>
+                    <option value="">Select field</option>
                     <option value="name">Name</option>
                     <option value="path">Path</option>
                     <option value="properties">Properties</option>
                 </select>
                 <div class="input-group-button">
-                    <button onClick={this.addField.bind(this) } type="buttom" class="button">Add</button>
+                    <button id="addFieldButtonId" disabled onClick={this.addField.bind(this) } type="button" class="button">Add</button>
                 </div>
             </div>
         );

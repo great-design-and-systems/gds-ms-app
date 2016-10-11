@@ -11,13 +11,9 @@ export default class FileFields extends React.Component {
     constructor() {
         super();
     }
-    getFileFields() {
-        new GetFileFields(this.props.selectedFile, (err, data) => {
-            if (!err) {
-                this.setState({
-                    fields: JSON.parse(data)
-                });
-            }
+    getFileFields(data) {
+        this.setState({
+            fields: JSON.parse(data)
         });
     }
     componentWillMount() {
@@ -25,25 +21,25 @@ export default class FileFields extends React.Component {
             selectedField: '',
             fields: []
         });
-        FileFieldStore.on(RELOAD_FILE_FIELDS, this.getFileFields);
-        this.getFileFields();
+        FileFieldStore.on(RELOAD_FILE_FIELDS, this.getFileFields.bind(this));
     }
     componentWillUnMount() {
-        FileFieldStore.removeListener(RELOAD_FILE_FIELDS, this.getFileFields);
+        FileFieldStore.removeListener(RELOAD_FILE_FIELDS, this.getFileFields.bind(this));
     }
     selectField(selectedField) {
         this.state.selectedField = selectedField;
     }
     addField(field) {
-        new AddFileField(this.props.selectedFile, field, (err) => {
+        new AddFileField(this.props.fileId, field, (err) => {
             if (!err) {
-                new ReloadFileFields();
+                new ReloadFileFields(this.props.fileId);
             }
         });
     }
     render() {
         const fields = [];
         lodash.forIn(this.state.fields, (field, key) => {
+            console.log('field', field);
             fields.push(<Field field={field} fieldId={key}/>)
         });
         return (
