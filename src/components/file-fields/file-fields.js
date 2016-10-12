@@ -11,21 +11,19 @@ export default class FileFields extends React.Component {
     constructor() {
         super();
     }
-    componentDidUpdate(prevProp) {
-        if (prevProp.fileId !== this.props.fileId) {
-            new ReloadFileFields(this.props.fileId);
+    componentWillUpdate(nextProps) {
+        if (nextProps.fileId !== this.props.fileId) {
+            new ReloadFileFields(nextProps.fileId);
         }
     }
     getFileFields(data) {
         this.setState({
             fields: JSON.parse(data)
         });
-        console.log('fields', this.state.fields);
     }
     componentWillMount() {
         this.setState({
-            selectedField: '',
-            fields: []
+            selectedField: ''
         });
         FileFieldStore.on(RELOAD_FILE_FIELDS, this.getFileFields.bind(this));
     }
@@ -47,12 +45,12 @@ export default class FileFields extends React.Component {
     render() {
         const fields = [];
         lodash.forIn(this.state.fields, (field, key) => {
-            fields.push(<Field field={field} fieldId={key} />)
+            fields.push(<Field field={field} fieldId={key} fileId={this.props.fileId} />)
         });
         return (
             <div class="large-4 medium-4 columns">
                 <div>
-                    <FieldSelect addField={this.addField.bind(this)} selectField={this.selectField.bind(this)} />
+                    <FieldSelect fields={this.state.fields} addField={this.addField.bind(this)} selectField={this.selectField.bind(this)} />
                 </div>
                 <ul class="tabs vertical" id="field-tabs" data-tabs>
                     {fields}

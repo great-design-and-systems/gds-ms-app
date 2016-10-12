@@ -49,15 +49,14 @@ export default class FileList extends React.Component {
     render() {
         let filesList = [];
         lodash.forIn(this.state.files, (file, key) => {
-            filesList.push(<ConfigFile selectFile={this.props.selectFile.bind(this) } key={key} getFiles={this.getFiles.bind(this) } file={file} fileId={key}/>);
+            filesList.push(<ConfigFile selectFile={this.props.selectFile.bind(this)} key={key} getFiles={this.getFiles.bind(this)} file={file} fileId={key} />);
         });
         return (
             <div class="large-4 medium-4 columns">
-                <div> {this.state.loading ? <span>Loading...</span> : ''}</div>
                 <div >
-                    <form  class="row collapse" onSubmit={this.handleAddFile.bind(this) }>
+                    <form class="row collapse" onSubmit={this.handleAddFile.bind(this)}>
                         <div class="input-group">
-                            <input value={this.state.fileName} class="input-group-field"  type="text" placeholder="file name" onChange={ this.handlerFileName.bind(this) } />
+                            <input value={this.state.fileName} class="input-group-field" type="text" placeholder="file name" onChange={this.handlerFileName.bind(this)} />
                             <div class="input-group-button">
                                 <button class="button" id="addFileButton" disabled type="submit">Add</button>
                             </div>

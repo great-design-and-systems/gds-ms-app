@@ -1,7 +1,7 @@
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 import Dispatcher from '../app.dispatcher';
-import axios  from 'axios';
-import {GET_FILE_FIELDS, ADD_FILE_FIELD, RELOAD_FILE_FIELDS} from './actions/types';
+import axios from 'axios';
+import { GET_FILE_FIELDS, ADD_FILE_FIELD, RELOAD_FILE_FIELDS, REMOVE_FILE_FIELD } from './actions/types';
 const FILE_FIELDS_URL = process.env.FILE_FIELDS_URL || 'https://gds-ms.firebaseio.com/config-files';
 class FileFieldStore extends EventEmitter {
     constructor() {
@@ -34,6 +34,15 @@ class FileFieldStore extends EventEmitter {
                 console.log('reloadFileFields', err);
             });
     }
+    removeFileField(fileId, fieldId, callback) {
+        axios.delete(FILE_FIELDS_URL + '/' + fileId + '/props/' + fieldId + '/.json')
+            .then((response) => {
+                callback(undefined);
+            })
+            .catch((err) => {
+                callback(err);
+            });
+    }
     handler(action) {
         switch (action.type) {
             case GET_FILE_FIELDS:
@@ -44,6 +53,9 @@ class FileFieldStore extends EventEmitter {
                 break;
             case RELOAD_FILE_FIELDS:
                 this.reloadFileFields(action.id);
+                break;
+            case REMOVE_FILE_FIELD:
+                this.removeFileField(action.fileId, action.fieldId, action.callback);
                 break;
         }
     }
