@@ -34,6 +34,8 @@ export default class FieldSelect extends React.Component {
                     <option disabled={!!this.state.name} value="name">Name</option>
                     <option disabled={!!this.state.path} value="path">Path</option>
                     <option disabled={!!this.state.properties} value="properties">Properties</option>
+                    <option disabled={!!this.state.files} value="files">Files</option>
+                    <option disabled={!!this.state.containers} value="containers">Containers</option>
                 </select>
             </div>
         );
