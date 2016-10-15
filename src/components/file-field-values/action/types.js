@@ -1,0 +1,4 @@
+export const GET_FIELD_VALUE = 'GET_FIELD_VALUE';
+export const SAVE_FIELD_VALUE = 'SAVE_FIELD_VALUE';
+export const DELETE_FIELD_VALUE = 'DELETE_FIELD_VALUE';
+export const ON_CHANGE = 'ON_CHANGE';

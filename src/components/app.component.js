@@ -4,6 +4,8 @@ import FileFields from './file-fields/file-fields';
 import ReloadFileFields from './file-fields/actions/reload-file-fields';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import FileFieldValues from './file-field-values/file-field-values';
+import FieldName from './file-field-values/field-name/field-name';
+
 export default class App extends React.Component {
     constructor() {
         super();
@@ -23,6 +25,7 @@ export default class App extends React.Component {
                 <div class="large-4 medium-4">
                     <Router history={hashHistory}>
                         <Route path='/' component={FileFieldValues}>
+                            <Route path='/field/:fileId/:fieldId' component='{FieldName}'></Route>
                         </Route>
                     </Router>
                 </div>
